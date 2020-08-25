@@ -1,4 +1,4 @@
-@extends('posdev.layout')
+@extends('layouts.layout')
   @section('content')
    <body id="app-container" class="menu-default show-spinner">
       <nav class="navbar fixed-top">

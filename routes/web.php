@@ -14,3 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'PosController@index')->name('dashboard');
+
+Route::resource('role', 'RoleController');
