@@ -20,16 +20,18 @@ Route::resource('role', 'RoleController');
 
 //Admin
 
-Route::group(['namespace'=>'Admin'],function(){
+Route::group(['namespace'=>'Auth'],function(){
 	
-	Route::get('/','Auth\LoginController@login_form')->name('login.form')->middleware('redirect');
-	Route::post('login','Auth\LoginController@login')->name('login');
+	Route::get('/','LoginController@login_form')->name('login.form')->middleware('redirect');
+	Route::post('login','LoginController@login')->name('login');
 
-	Route::group(['middleware'=>'admin'],function(){
+	Route::group(['middleware'=>'aauth'],function(){
 
-		Route::get('/home','Auth\LoginController@home')->name('home');
-		Route::get('/logout','Auth\LoginController@logout')->name('logout');
+		Route::get('/home','LoginController@home')->name('home');
+		Route::get('/logout','LoginController@logout')->name('logout');
 	});
 });
-Route::get('/store','Master\StoreController@index')->name('store');
-Route::post('/store-save','Master\StoreController@save')->name('store.save');
+
+
+include('jinder.php');
+
