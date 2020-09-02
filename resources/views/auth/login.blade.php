@@ -19,7 +19,9 @@
     <div class="fixed-background"></div>
     <main>
         <div class="container">
+               
             <div class="row h-100">
+
                 <div class="col-12 col-md-10 mx-auto my-auto">
                     <div class="card auth-card">
                         <div class="position-relative image-side ">
@@ -37,7 +39,7 @@
                                 <span class="logo-single"></span>
                             </a>
                             <h6 class="mb-4">Login</h6>
-                            <form method="post" action="{{route('login')}}">
+                            <form method="post" action="{{route('login.post')}}">
                               @csrf
                                 <label class="form-group has-float-label mb-4">
                                     <input  name="email" class="form-control" />
@@ -59,6 +61,7 @@
             </div>
         </div>
     </main>
+   
     <script src="{{asset('js/vendor/jquery-3.3.1.min.js')}}"></script>
     <script src="{{asset('js/vendor/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('js/dore.script.js')}}"></script>

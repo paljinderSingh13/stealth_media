@@ -23,8 +23,8 @@
       <link rel="stylesheet" href="{{asset('css/app.css')}}" />
    </head>
   <body id="app-container" class="menu-default show-spinner">
-    @include('components.header')
-    @include('components.sidebar')
+    @include('organization.components.header')
+    @include('organization.components.sidebar')
 
         @yield('content')
 

@@ -20,18 +20,31 @@ Route::resource('role', 'RoleController');
 
 //Admin
 
-Route::group(['namespace'=>'Auth'],function(){
+Route::group(['namespace'=>'Organization\Auth'],function(){
 	
 	Route::get('/','LoginController@login_form')->name('login.form')->middleware('redirect');
-	Route::post('login','LoginController@login')->name('login');
+	Route::post('login','LoginController@login')->name('login.post');
+
+	Route::get('/lo',function(){
+		dd(234567890);
+	})->name('login');
 
 	Route::group(['middleware'=>'aauth'],function(){
 
+	
 		Route::get('/home','LoginController@home')->name('home');
 		Route::get('/logout','LoginController@logout')->name('logout');
 	});
 });
 
 
-include('jinder.php');
+	include('jinder.php');
+	
 
+
+
+
+
+
+
+// Route::get('/dashboard', 'HomeController@index')->name('home');

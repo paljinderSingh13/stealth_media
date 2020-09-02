@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Organization\Auth;
 use App\Http\Controllers\Controller;
 
 // use App\Providers\RouteServiceProvider;
@@ -17,7 +17,6 @@ class LoginController extends Controller
     
 
     public function login_form(){
-
       
         //  Admin::create(['name'=>'pos','email'=>'super@admin.com','password'=>Hash::make('123456')]);
         return view('auth.login');
