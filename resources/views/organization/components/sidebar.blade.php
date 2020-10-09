@@ -57,19 +57,37 @@
             <div class="scroll">
 
                  <ul class="list-unstyled" data-link="master">
+
+                 @if(Auth::user()->user_type==1)
                   <li>
                      <a href="{{route('store')}}">
                      <i class="simple-icon-chart"></i> <span class="d-inline-block">Store</span>
                      </a>
                   </li>
                   <li>
-                     <a href="#">
+                     <a href="{{route('role')}}">
                      <i class="simple-icon-chart"></i> <span class="d-inline-block">Role</span>
                      </a>
                   </li>
                   <li>
-                     <a href="#">
+                     <a href="{{route('staff')}}">
                      <i class="simple-icon-chart"></i> <span class="d-inline-block">Staff</span>
+                     </a>
+                  </li>
+                 @endif
+                  <li>
+                     <a href="{{route('staff.available')}}">
+                     <i class="simple-icon-chart"></i> <span class="d-inline-block">Staff  Availability</span>
+                     </a>
+                  </li>
+                  <li>
+                     <a href="{{route('roster.staff')}}">
+                     <i class="simple-icon-chart"></i> <span class="d-inline-block">Roster</span>
+                     </a>
+                  </li>
+                  <li>
+                     <a href="{{route('product.dashboard')}}">
+                     <i class="simple-icon-chart"></i> <span class="d-inline-block">Product</span>
                      </a>
                   </li>
                </ul>

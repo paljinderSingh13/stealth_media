@@ -12,10 +12,10 @@
 
             <div id="app">
 
-            
-           
+
+
    <store-component status_route="{{route('store.status')}}"
-    list_route="{{route('store.data')}}" store_route="{{route('store.save')}}" del_route="{{route('store.del')}}"></store-component>
+    list_route="{{route('store.data')}}" store_id_route="{{route('store.id')}}" store_route="{{route('store.save')}}" del_route="{{route('store.del')}}"></store-component>
             </div>
 
          </div>

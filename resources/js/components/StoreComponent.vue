@@ -1,12 +1,23 @@
 <template>
 <div>
-        
-    
-            <div class="row"> 
-                    <div class="col-12 mb-5"> 
-                        <a  @click="newForm()" v-show="newFormBtn"  class="btn btn-primary  mt-3 ml-3">New Store</a> 
-                        <a v-show="formShow"  @click="formShow=false; newFormBtn=true;"  class="btn btn-danger  mt-3 ml-3">Cancel</a> 
-                    </div> 
+  <div class="alert alert-danger" v-show="danger">
+    <ul>
+      <li v-for="error in errors">
+        {{error[0]}}
+
+      </li>
+
+    </ul>
+  </div>
+  <div class="alert alert-success" style="margin-top:10px" v-show="success">
+    {{successful}}
+  </div>
+
+        <div class="row">
+                    <div class="col-12 mb-5">
+                        <a  @click="newForm(); success=false; danger=false;" v-show="newFormBtn"  class="btn btn-primary  mt-3 ml-3">New Store</a>
+                        <a v-show="formShow"  @click="formShow=false; newFormBtn=true;success=false; danger=false;"  class="btn btn-danger  mt-3 ml-3">Cancel</a>
+                    </div>
             </div>
 <transition name="bounce">
 
@@ -23,14 +34,16 @@
                                 <input v-model="form.id" type="hidden"  class="form-control">
                                 <label for="inputname">Name</label>
                                 <input v-model="form.name" type="text"   class="form-control"  id="inputEname" placeholder="">
-                                <span v-if="errors.name && form.name==null" class="text-danger"> {{errors.name[0]}} </span>
-                                      
+                                <span v-show="danger" v-if="errors.name && form.name==null" class="text-danger"> {{errors.name[0]}} </span>
+
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputcontact">Contact Number</label>
                               <input v-model="form.contact_number"   type="text" class="form-control"  id="contact_number" placeholder="">
+                              <span v-show="danger" v-if="errors.contact_number && form.contact_number==null" class="text-danger"> {{errors.contact_number[0]}} </span>
                         </div>
+
                         <div class="form-group">
                             <label for="inputcontact">Alternate Contact Number</label>
                             <input v-model="form.alertnate_contact_number"   type="text" class="form-control"  id="" placeholder="">
@@ -38,6 +51,7 @@
                         <div class="form-group">
                             <label for="inputcontact">Email</label>
                             <input type="email"  v-model="form.email" class="form-control"  id="" placeholder="">
+                            <span v-show="danger" v-if="errors.email && form.email==null" class="text-danger"> {{errors.email[0]}} </span>
                         </div>
                     </div>
                 </div>
@@ -58,37 +72,39 @@
                                  </select>
                               </div>
                            </div>
-                        
+
                      </div>
                   </div>
 <!-- business Detail -->
                   <div class="card mb-4">
                      <div class="card-body">
                         <h5 class="card-title">Business Details</h5>
-                        
+
                            <div class="form-row">
                               <div class="form-group col-12">
                                  <label for="inputbusinessnumber">Business Number</label>
                                  <input type="text" v-model="form.business_number"  class="form-control"  id="" placeholder="">
+                                 <span v-show="danger" v-if="errors.business_number && form.business_number==null" class="text-danger"> {{errors.business_number[0]}} </span>
                               </div>
 
-                              
+
                               <div class="form-group col-12">
                                  <label for="inputbusinessname">Business Name</label>
                                  <input type="text" v-model="form.business_name" class="form-control"  id="" placeholder="">
+                                 <span v-show="danger" v-if="errors.business_name && form.business_name==null" class="text-danger"> {{errors.business_name[0]}} </span>
                               </div>
                            </div>
-                        
+
                      </div>
                   </div>
             </div>
     <!-- end Left Forms -->
-               
+
                <div class="col-6">
                   <div class="card mb-4">
                      <div class="card-body">
                         <h5 class="card-title">Store Address</h5>
-                        
+
                            <div class="form-row">
                               <div class="form-group col-md-6">
                                  <label for="inputunit">Unit Number</label>
@@ -97,17 +113,19 @@
                               <div class="form-group col-md-6">
                                  <label for="inputstreetnumber">Street Number</label>
                                  <input type="text" class="form-control" v-model="form.street_number" id="" placeholder="">
+                                  <span v-show="danger" v-if="errors.street_number && form.street_number==null" class="text-danger"> {{errors.street_number[0]}} </span>
                               </div>
                            </div>
 
-                          
+
                            <div class="form-row">
                               <div class="form-group col-md-6">
                                  <label for="inputstreet">Street Name</label>
                                  <input type="text" class="form-control" v-model="form.street_name" id="" placeholder="">
+                                 <span v-show="danger" v-if="errors.street_name && form.street_name==null" class="text-danger"> {{errors.street_name[0]}} </span>
                               </div>
                               <div class="form-group col-md-6">
-                                 <label for="inputpostcode">postcode</label>
+                                 <label for="inputpostcode">Postcode</label>
                                  <input type="text" v-model="form.post_code" class="form-control"  id="" placeholder="">
                               </div>
                            </div>
@@ -116,13 +134,14 @@
                                  <label for="inputsubrub">Subrub Name</label>
                                  <input type="text" class="form-control" v-model="form.suburb_name"  id="" placeholder="">
                               </div>
-                               
+
                               <div class="form-group col-md-6">
                                  <label for="inputstate">State</label>
                                 <select v-model="form.state" id="inputstate" class="form-control" >
                                     <option selected="">Choose...</option>
                                     <option>Sydeny</option>
                                  </select>
+                                 <span v-show="danger" v-if="errors.state && form.state==null" class="text-danger"> {{errors.state[0]}} </span>
                               </div>
                            </div>
                            <div class="form-row">
@@ -132,59 +151,65 @@
                                     <option selected="">Australia</option>
                                     <option>...</option>
                                  </select>
+                                 <span v-show="danger" v-if="errors.country && form.country==null" class="text-danger"> {{errors.country[0]}} </span>
                               </div>
                            </div>
-                        
+
                      </div>
                   </div>
                   <div class="card mb-4">
                      <div class="card-body">
                         <h5 class="card-title">Bank Information</h5>
                         <p></p>
-                        
+
                            <div class="form-row">
                               <div class="form-group col-12">
                                  <label for="inputbsb">BSB</label>
                                  <input v-model="form.bsb" type="text" class="form-control"   id="" placeholder="">
+                                 <span v-show="danger" v-if="errors.bsb && form.bsb==null" class="text-danger"> {{errors.bsb[0]}} </span>
                               </div>
                               <div class="form-group col-12">
                                  <label for="inputbankaccountnumber">Bank Account Number</label>
                                  <input v-model="form.bank_account_number" type="text" class="form-control"  id="" placeholder="">
+                                 <span v-show="danger" v-if="errors.bank_account_number && form.bank_account_number==null" class="text-danger"> {{errors.bank_account_number[0]}} </span>
+
                               </div>
                               <div class="form-group col-12">
                                  <label for="inputbankaccountname">Bank Account Name</label>
                                  <input type="text" v-model="form.bank_account_name" class="form-control"  id="" placeholder="">
+                                 <span v-show="danger" v-if="errors.bank_account_name && form.bank_account_name==null" class="text-danger"> {{errors.bank_account_name[0]}} </span>
+
                               </div>
                            </div>
-                        
+
                      </div>
                   </div>
                </div>
 <!-- end right forms -->
-               <div class="row"> 
-                    <div class="col-12 mb-5"> 
-                        <a  @click="store" class="btn btn-primary  mt-3 ml-3">Submit</a> 
-                        <a v-show="formShow"  @click="formShow=false; newFormBtn=true;"  class="btn btn-danger  mt-3 ml-3">Cancel</a> 
- 
-                    </div> 
+               <div class="row">
+                    <div class="col-12 mb-5">
+                        <a  @click="store" class="btn btn-primary  mt-3 ml-3">Submit</a>
+                        <a v-show="formShow"  @click="formShow=false; newFormBtn=true;success=false; danger=false;"  class="btn btn-danger  mt-3 ml-3">Cancel</a>
+
+                    </div>
                 </div>
-            
+
             <!-- {{data}}
-            
+
             {{errors}} -->
 
             <br>
             <br>
             <br>
             <!-- {{edit_data}} -->
-            
+
         </div>
     </transition>
 
          <div class="col-lg-12 col-md-12 mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Store's</h5>
+                            <h5 class="card-title">Stores</h5>
 
                             <table class="table table-striped">
                                 <thead>
@@ -198,30 +223,57 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+
                                     <tr v-for="(row, index) in data">
-                                        <th scope="row">{{index}}</th>
+                                        <th scope="row">{{index+1}}</th>
                                         <td>{{row.name}}</td>
                                         <td>{{row.email}}</td>
                                         <td>{{row.contact_number}}</td>
                                         <td> <h6>
                                                 <span v-if="row.status==1" class="badge badge-success"> Active </span>
                                                 <span v-else-if="row.status==0" class="badge badge-danger">In Active</span>
-                                            </h6>                       
+                                            </h6>
                                         </td>
                                         <td>
-                                            <a @click="edit(row)" href="#" class="btn btn-sm btn-primary mb-1" >Edit</a>
-                                            <a @click="destroy(row.id)" class="btn btn-sm btn-danger mb-1">Delete</a>
-                                            <a @click="status(row.id, row.status)" class="btn btn-sm btn-warning mb-1" >Change Status</a>
+                                            <a @click="edit(row); danger=false; success=false;" href="#" class="btn btn-sm btn-primary mb-1" >Edit</a>
+                                            <input type="button" @click="destroy(row.id,index); success=false; danger=false;" class="btn btn-sm btn-danger mb-1" data-toggle="modal" data-target="#exampleModalPopovers" value="Delete" />
+                                            <a @click="status(row.id, row.status); success=false; danger=false;" class="btn btn-sm btn-warning mb-1" >Change Status</a>
                                         </td>
                                     </tr>
-                                  
-                                   
+
+
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
+                    <!-- Modal content-->
+                    <div v-if="modalpopover">
+
+                    <div id="exampleModalPopovers" class="modal fade show" tabindex="-1" role="dialog"
+                                 aria-hidden="true">
+                                 <div class="modal-dialog  bg-white" role="document">
+                                     <div class="modal-content">
+                                         <div class="modal-header">
+                                             <h5 class="modal-title" id="exampleModalPopoversLabel">Warning</h5>
+                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                 <span aria-hidden="true">×</span>
+                                             </button>
+                                         </div>
+                                         <div class="modal-body">
+                                             <h5>Please Confirm!</h5>
+                                             <p>{{dynamicBody}}</p>
+                                             <hr>
+                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                             <a @click="onyes = 'yes';" class="btn btn-primary"  data-dismiss="modal">Yes</a>
+                                         </div>
+
+                                     </div>
+                                 </div>
+                             </div>
+                           </div>
+
+
 
 </div>
 
@@ -229,15 +281,19 @@
 </template>
 <script>
 export default {
-    props:['store_route','list_route','del_route','status_route'],
+    props:['store_route','list_route','del_route','status_route','store_id_route'],
 
     data(){
         return {
             test:"hello world",
             formShow:false,
             newFormBtn:true,
+            success: false,
+            danger:false,
+            onyes: '',
+            modalpopover:false,
             form:{
-             id:null,    
+             id:null,
              name:null,
              email:null,
              contact_number:null,
@@ -254,17 +310,28 @@ export default {
              bank_account_number:null,
              bank_account_name:null,
              business_number:null,
-             business_name:null
+             business_name:null,
+             dynamicBody:null,
         },
         data:{},
         errors:{},
-        edit_data:{}
+        edit_data:{},
+        successful: {},
+        store_staff_id:{},
         }
     },
     created(){
         this.list();
+        this.storeStaffId();
     },
     methods:{
+
+        storeStaffId(){
+          axios.get(this.store_id_route).then(response=>{
+            this.store_staff_id = response.data;
+            console.log(this.store_staff_id);
+          });
+        },
 
         newForm(){
             this.formShow = true;
@@ -278,35 +345,75 @@ export default {
 
         edit(row){
             this.formShow = true;
+            this.newFormBtn = false;
            this.form = this.edit_data = row;
         },
 
         list(){
 
             axios.get(this.list_route).then(response=>{
-                console.log(response.data);
                 this.data = response.data;
+                console.log(this.data);
+
             });
         },
 
         store(){
-           
+
             axios.post(this.store_route,this.form).then(response=>{
-                console.log(response.data);
+                // console.log(response.data);
                 this.list();
                 this.formShow = false;
+                this.newFormBtn = true;
                 this.clear();
+                this.success = true;
+                this.danger = false;
+                this.successful = response.data.success;
+                window.scrollTo(0, 0);
             }).catch(error=>{
-                    console.log(error);
+              console.log("ERRRR:: ",error.response.data);
+
                     this.errors = error.response.data.errors;
+                    this.danger = true;
+                    window.scrollTo(0, 0);
             });
             // console.log(this.form);  err.response.data.errors;
         },
-        destroy(id){
-           var result = confirm("Want to delete?");
-           if (result) {
-            axios.get(this.del_route+'/'+id).then(this.list());
-            }
+
+        destroy(id,index){
+          // this.modalpopover = true;
+          // var newid = id;
+          // for(var item in this.data )
+          // // console.log(this.data[index].status);
+          //   {
+              if(this.data[index].status == 1){
+                var result = confirm("This Store is active. Do you really want to Delete?");
+                if(result){
+                  axios.get(this.del_route+'/'+id).then(response=>{
+                    this.list()
+                    this.success = true;
+                    this.danger = false;
+
+                    this.successful = response.data.success;
+                    window.scrollTo(0, 0);
+
+                  });
+                }
+                  else{
+                return confirm("Store not deleted");
+              }
+            }else{
+            axios.get(this.del_route+'/'+id).then(response=>{
+              console.log(response.data);
+              this.list()
+              this.success = true;
+              this.danger = false;
+
+              this.successful = response.data.success;
+              window.scrollTo(0, 0);
+
+            });
+          }
         },
         status(id,status){
             axios.get(this.status_route+'/'+id+'/'+status).then(this.list());

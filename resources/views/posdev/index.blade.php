@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('organization.layouts.layout')
   @section('content')
 
      

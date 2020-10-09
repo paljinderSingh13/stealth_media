@@ -5,6 +5,7 @@
  */
 
 require('./bootstrap');
+import moment from 'moment';
 
 window.Vue = require('vue');
 
@@ -22,6 +23,15 @@ window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('store-component', require('./components/StoreComponent.vue').default);
 
+import Role from './components/Role.vue';
+import Staff from './components/StaffComponent.vue';
+import Available from './components/AvailableComponent.vue';
+import Roster from './components/RosterComponent.vue';
+import Product from './components/ProductComponent.vue';
+
+
+
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -30,4 +40,6 @@ Vue.component('store-component', require('./components/StoreComponent.vue').defa
 
 const app = new Vue({
     el: '#app',
+    components: {
+        "role": Role,Staff,Available,Roster,Product}
 });
