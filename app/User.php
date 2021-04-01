@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'user_name', 'first_name', 'last_name', 'gender', 'user_type', 'contact', 'alternate', 'store_affiliation', 'created_by'
     ];
 
     /**
@@ -36,4 +36,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function role(){
+      return $this->belongsTo('App\Model\Organization\Master\Role','user_type','id');
+    }
+    public function store(){
+      return $this->belongsTo('App\Model\Organization\Master\Store','store_affiliation','id');
+    }
+    public function availability(){
+      return $this->hasMany('App\Model\Organization\Master\StaffAvailable','staff_id','id');
+    }
+
+
+
+
 }
