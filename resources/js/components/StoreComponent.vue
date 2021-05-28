@@ -1,5 +1,22 @@
 <template>
 <div>
+
+  <!-- {{messages}}
+  <div class="messages" v-for="(msg, index) in messages" :key="index">
+                  <p><span class="font-weight-bold">{{ msg.user }}: </span>{{ msg.message }}</p>
+              </div>
+
+    <form @submit.prevent="sendMessage">
+              <div class="gorm-group">
+                  <label for="user">User:</label>
+                  <input type="text" v-model="user" class="form-control">
+              </div>
+              <div class="gorm-group pb-3">
+                  <label for="message">Message:</label>
+                  <input type="text" v-model="msgs" class="form-control">
+              </div>
+              <button type="submit" class="btn btn-success">Send</button>
+          </form> -->
         <div class="row">
           <transition name="bounce">
             <div @click="success_message=false;" v-show="success_message" class="col-8 bg-info p-3" style="top: 260px; left: 1000px; position: fixed; padding: 20px; z-index: 1;">
@@ -25,8 +42,10 @@
                                 <input v-model="form.id" type="hidden"  class="form-control">
                                 <label for="name">Project Name</label>
                                 <input v-model="form.name" type="text"   class="form-control"  id="name" placeholder="">
-
+ <span v-show="danger" v-if="errors.name && (form.name.length==0)" class="text-danger">
+                                 {{errors.name[0]}} </span>
                             </div>
+
                         </div>
                          <div class="form-group">
                             <label for="client_name">Client Name</label>
@@ -167,6 +186,55 @@
                               </label>
                         </div>
 
+                        <div class="form-group">
+                            <label>Project Testing  </label>
+                              <label class="radio-inline">
+                                <input type="radio" v-model="form.project_testing" value="yes" checked>Yes
+                              </label>
+                              <label class="radio-inline">
+                                <input type="radio" v-model="form.project_testing" value="no">No
+                              </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Google Review  </label>
+                              <label class="radio-inline">
+                                <input type="radio" v-model="form.google_review" value="yes" checked>Yes
+                              </label>
+                              <label class="radio-inline">
+                                <input type="radio" v-model="form.google_review" value="no">No
+                              </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="user_name">Email</label>
+                              <input v-model="form.email"   type="text" class="form-control"  id="user_name">
+                              <span v-show="danger" v-if="errors.email && form.email==null" class="text-danger">
+                                {{errors.email[0]}} </span>
+
+                          </div>
+
+                          <div class="form-group">
+                            <label for="user_name">Password</label>
+                              <input v-model="form.email_password"   type="text" class="form-control"  id="user_name">
+                              <span v-show="danger" v-if="errors.email_password && form.email_password==null" class="text-danger">
+                                {{errors.email_password[0]}} </span>
+
+                          </div>
+                           <div class="form-row">
+
+                                <div class="form-group col-md-12">
+                                 <label for="inputunit">Additional Information</label>
+                                 <textarea class="form-control" v-model="form.additional_information" id="" cols="30" rows="10"></textarea>
+
+
+                              </div>
+                            </div>
+
+
+
+
+
                      </div>
                   </div>
 <!-- business Detail -->
@@ -199,7 +267,7 @@
                                  <label for="inputtime">Sale Man</label>
                                  <select id="inputtime" v-model="form.sale_id" class="form-control" >
                                     <option selected="">Choose </option>
-                                    <option value="sale.id" v-for="sale in sale_user_data" :key="sale.id">{{sale.first_name}} {{sale.last_name}}</option>
+                                    <option :value="sale.id" v-for="sale in sale_user_data" :key="sale.id">{{sale.first_name}} {{sale.last_name}}</option>
 
                                   </select>
                                  <span v-show="danger" v-if="errors.sale_id && form.sale_id==null" class="text-danger"> {{errors.sale_id[0]}} </span>
@@ -226,7 +294,7 @@
 
                            <div class="form-row">
                               <div class="form-group col-12">
-                                 <label for="inputbsb">Tecnology</label>
+                                 <label for="inputbsb">Technology</label>
                                  <input v-model="form.technology" type="text" class="form-control"   id="" placeholder="">
                                  <span v-show="danger" v-if="errors.technology && form.technology==null" class="text-danger"> {{errors.technology[0]}} </span>
                               </div>
@@ -347,6 +415,7 @@
                                         <td> {{status_data[row.project_status]}}
                                         </td>
                                         <td>
+                                            <a target="_blank"   danger=false; success=false; :href="detail_route+row.id" class="btn btn-sm btn-primary mb-1" >Detail</a>
 
                                             <a @click="edit(row); danger=false; success=false;" href="#" class="btn btn-sm btn-primary mb-1" >Edit</a>
                                             <a @click="view=row; "  data-toggle="modal" data-target=".bd-example-modal-detail"  class="btn btn-warning btn-sm "> View </a>
@@ -375,6 +444,13 @@
                                       <div class="modal-body">
 
                                         <div class="row">
+
+                                          <div class="col-5 border">
+                                          <h3>Personal Detail </h3>
+                                          </div>
+                                          <div class="col-5 border" >
+
+                                          </div>
                                           <div class="col-12">
                                             <table class="table table-bordered">
                                               <tr v-for="(val,key) in this.view" :key="key" >
@@ -393,6 +469,25 @@
 
                                           </div>
                                         </div>
+
+    <div class="messages" v-for="(msg, index) in messages" :key="index">
+          <p><span class="font-weight-bold">{{ msg.user }}: </span>{{ msg.message }}</p>
+    </div>
+
+    <form @submit.prevent="sendMessage">
+              <div class="gorm-group">
+                  <label for="user">User:</label>
+                  <input type="text" v-model="user" class="form-control">
+              </div>
+              <div class="gorm-group pb-3">
+                  <label for="message">Message:</label>
+                  <input type="text" v-model="msgs" class="form-control">
+              </div>
+              <button type="submit" class="btn btn-success">Send</button>
+          </form>
+
+
+
                                     </div>
                                 </div>
 
@@ -430,11 +525,17 @@
 
 </template>
 <script>
+import io from "socket.io-client";
 export default {
-    props:['store_route','list_route','del_route','status_route','store_id_route','sale_user'],
+    props:['detail_route','store_route','list_route','del_route','status_route','store_id_route','sale_user'],
 
     data(){
         return {
+          user: '',
+            msgs: '',
+            messages: [],
+            socket : io('localhost:3001'),
+
           loc:window.location.origin,
           excepts:['id'],
           web_scope:null,
@@ -453,27 +554,34 @@ export default {
             danger:false,
             onyes: '',
             modalpopover:false,
-            form:{id:null,
-                  name :null,
-                  client_name :null,
-                  client_phone :null,
-                  client_email :null,
-                  client_address :null,
-                  website_url :null,
-                  drive_link :null,
-                  website_info :null,
-                  project_status :null,
-                  test_url :null,
-                  admin_panel_url :null,
-                  user_name :null,
-                  password :null,
-                  hosted_by :null,
-                  hosted_on :null,
-                  domain_register :null,
-                  note :null,
-                  start_date :null,
-                  cost :null,
-                  technology :null,
+            form:{id:'',
+                  sale_id:'',
+                  name :'',
+                  client_name :'',
+                  client_phone :'',
+                  client_email :'',
+                  client_address :'',
+                  website_url :'',
+                  drive_link :'',
+                  website_info :'',
+                  project_status :'',
+                  test_url :'',
+                  admin_panel_url :'',
+                  user_name :'',
+                  password :'',
+                  hosted_by :'',
+                  hosted_on :'',
+                  domain_register :'',
+                  note :'',
+                  start_date :'',
+                  cost :'',
+                  monthly_maintenance:'',
+                  seo:'',
+                  technology :'',
+                  project_testing:'',
+                  google_review:'',
+                  email:'',
+                  email_password:'',
   },
         project_data:{},
         errors:{},
@@ -495,6 +603,15 @@ export default {
         this.sale_users();
     },
     methods:{
+      sendMessage(e) {
+            e.preventDefault();
+
+            this.socket.emit('SEND_MESSAGE', {
+                user: this.user,
+                message: this.msgs
+            });
+            this.msgs = ''
+        },
       web_scope_upload(){
           console.log( this.$refs.web_scope.files[0]);
           this.web_scope = this.$refs.web_scope.files[0];
@@ -534,23 +651,27 @@ export default {
         },
 
         clear(){
-         this.form = {id:null,name :null,client_name :null, client_phone :null,client_email :null,
-client_address :null,
-website_url :null,
-drive_link :null,
-website_info :null,
-project_status :null,
-test_url :null,
-admin_panel_url :null,
-user_name :null,
-password :null,
-hosted_by :null,
-hosted_on :null,
-domain_register :null,
-note :null,
-start_date :null,
-cost :null,
-technology :null,
+         this.form = {sale_id:'', monthly_maintenance:'',seo:'',id:'',name :'',client_name :'', client_phone :'',client_email :'',
+client_address :'',
+website_url :'',
+drive_link :'',
+website_info :'',
+project_status :'',
+test_url :'',
+admin_panel_url :'',
+user_name :'',
+password :'',
+hosted_by :'',
+hosted_on :'',
+domain_register :'',
+note :'',
+start_date :'',
+cost :'',
+technology :'',
+ project_testing:'',
+google_review:'',
+email:'',
+email_password:'',
   };
         },
 
@@ -598,11 +719,19 @@ technology :null,
             formData.append('hosted_on',this.form.hosted_on);
             formData.append('domain_register',this.form.domain_register);
             formData.append('note',this.form.note);
+            formData.append('sale_id',this.form.sale_id);
+            formData.append('monthly_maintenance',this.form.monthly_maintenance);
+            formData.append('seo',this.form.seo);
+
             formData.append('start_date',this.form.start_date);
             formData.append('cost',this.form.cost);
+            formData.append('additional_information',this.form.additional_information);
             formData.append('technology',this.form.technology);
 
-
+              formData.append('project_testing',this.form.project_testing);
+              formData.append('google_review',this.form.google_review);
+              formData.append('email',this.form.email);
+              formData.append('email_password',this.form.email_password);
             axios.post(this.store_route,formData,{
                                                 headers: {
                                                     'Content-Type': 'multipart/form-data'
@@ -661,6 +790,13 @@ technology :null,
         },
 
 
+    },
+    mounted() {
+        this.socket.on('MESSAGE', (data) => {
+          console.log(data);
+            this.messages = [...this.messages, data];
+            // you can also do this.messages.push(data)
+        });
     },
     computed: {
     filteredItems() {

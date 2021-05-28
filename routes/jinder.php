@@ -8,6 +8,16 @@ Route::get('/sale_user','Master\StaffController@sale_user')->name('sale.user');
 Route::get('/store','Master\StoreController@index')->name('store');
 
 Route::get('/projects','Master\StoreController@index')->name('store');
+Route::get('/project-detail-{pid?}','Master\StoreController@project_detail')->name('project.detail');
+Route::get('/detail-data-{pid?}','Master\StoreController@project_detail_data')->name('project.detail.data');
+
+Route::get('query','Master\StoreController@query')->name('query');
+
+Route::post('/project-chat','Master\StoreController@new_project_chat')->name('project.chat.send');
+
+Route::get('/detail-chat-{pid?}','Master\StoreController@project_chat_data')->name('project.chat.data');
+
+
 Route::get('/store-drop-down-data','Master\StoreController@store_data')->name('store.dropdown');
 
 Route::post('/store-save','Master\StoreController@save')->name('store.save');

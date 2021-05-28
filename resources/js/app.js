@@ -22,6 +22,7 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('store-component', require('./components/StoreComponent.vue').default);
+Vue.component('product-detail', require('./components/ProductDetailComponent.vue').default);
 
 import Role from './components/Role.vue';
 import Staff from './components/StaffComponent.vue';

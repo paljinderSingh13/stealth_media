@@ -62,7 +62,7 @@
                                         <span v-show="danger" v-if="errors.gender && form.gender==null" class="text-danger"> {{errors.gender[0]}} </span>
 
                                     </div>
-                                   
+
                                 </div>
 								<div class="form-row">
                                     <div class="form-group col-md-6">
@@ -124,10 +124,10 @@
                                          <th scope="col">S.No</th>
                                          <th scope="col">Name</th>
                                          <th scope="col">Gender</th>
-                                        
+
                                          <th scope="col">Email Address</th>
                                          <th scope="col">Contact</th>
-                                        
+
                                          <th scope="col">Status</th>
                                          <th scope="col">Action</th>
 
@@ -138,11 +138,11 @@
                                          <th scope="row">{{index+1}}</th>
                                          <td>{{row.first_name}} {{row.last_name}}</td>
                                          <td>{{row.gender}}</td>
-                                        
-                                       
+
+
                                          <td>{{row.email}}</td>
                                          <td>{{row.contact}}</td>
-                                         
+
                                          <td><h6>
                                            <span v-if="row.status==1" class="badge badge-success"> Active </span>
                                            <span v-else-if="row.status==0" class="badge badge-danger">In Active</span>
@@ -184,7 +184,7 @@ export default {
           first_name: null,
           last_name: null,
           gender: null,
-          user_type: null,
+          user_type: 'sale',
           email: null,
           contact: null,
           alternate: null,
@@ -194,7 +194,7 @@ export default {
         edit_data:{},
         errors:{},
         successful:{},
-       
+
     }
   },
   created(){
@@ -210,9 +210,9 @@ export default {
         this.clear();
     },
 
-    
+
     clear(){
-      this.form = {id:null, first_name:null,last_name:null,user_name:null,email:null,contact:null,alertnate:null,password:null,gender:null,user_type:null,store_affiliation:null},this.danger=false;
+      this.form = {id:null, first_name:null,last_name:null,user_name:null,email:null,contact:null,alertnate:null,password:null,gender:null,user_type:'sale',store_affiliation:null},this.danger=false;
     },
     list(){
       axios.get(this.list_route).then(response=>{
